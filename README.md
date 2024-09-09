@@ -1,11 +1,11 @@
 <h1>how to run the app</h1>
-run these command:
-composer install
-npm i
-npm run dev
-php artisan migrate
-php artisan db:seed 
-php artisan serve
-and you can connect as an admin using this account :
-email: admin@gmail.com
+run these command: <br>
+composer install<br>
+npm i<br>
+npm run dev<br>
+php artisan migrate<br>
+php artisan db:seed <br>
+php artisan serve<br>
+and you can connect as an admin using this account :<br>
+email: admin@gmail.com<br>
 password: 12345678
