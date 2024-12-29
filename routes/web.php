@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DTaskController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PTaskStateController;
+use App\Livewire\Task\Create;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 // Route::post('login',[AuthController::class,'login']);
 Route::get('/dashboard', [DTaskController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/{task}/update-status', [DTaskController::class, 'updateStatus'])->middleware(['auth', 'verified'])->name('status');
@@ -28,22 +27,21 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    ############################### task-state ###############################
+    //############################## task-state ###############################
     Route::prefix('task-states')->group(function () {
         Route::get('/', [PTaskStateController::class, 'index']);
         Route::get('/{id}', [PTaskStateController::class, 'show']);
     });
-    ############################### task ###############################
+    //############################## task ###############################
     Route::prefix('tasks')->group(function () {
         Route::get('/', [DTaskController::class, 'index']);
         Route::post('/', [DTaskController::class, 'store'])->name('storeTask');
         Route::put('/{task}', [DTaskController::class, 'update'])->name('updateTask');
         Route::get('/{task}/edit', [DTaskController::class, 'edit'])->name('editTask');
-        Route::get('/create', [DTaskController::class, 'create'])->name('createTask');
+        Route::get('/create', Create::class)->name('createTask');
         Route::get('/{id}', [DTaskController::class, 'show']);
         Route::delete('/{task}', [DTaskController::class, 'destroy'])->name('deleteTask');
     });
 });
 
 require __DIR__.'/auth.php';
-
